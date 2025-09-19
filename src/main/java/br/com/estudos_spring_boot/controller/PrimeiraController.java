@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestHeader;
 
 @RestController
 @RequestMapping("/primeiraController")
@@ -40,9 +41,25 @@ public class PrimeiraController {
       return "No metodoComQueryParamsMap, o parametro é: " + allParams.entrySet();
     }
 
+    // Ex: localhost:8080/primeiraController/metodoComBodyParams
+    // No Postman
     @PostMapping("/metodoComBodyParams")
     public String metodoComBodyParams(@RequestBody Usuario usuario){
       return "No metodoComBodyParams, o verbo HTTP usado foi POST: " + usuario.username();
+    }
+
+    // Ex: localhost:8080/primeiraController/metodoComHeaderParam
+    // No Postman
+    @PostMapping("/metodoComHeaderParam")
+    public String metodoComHeaderParam(@RequestHeader String name){
+      return "No metodoComHeaderParam: " + name;
+    }
+
+    // Ex: localhost:8080/primeiraController/metodoComHeadersParams
+    // No Postman
+    @PostMapping("/metodoComHeadersParams")
+    public String metodoComHeadersParams(@RequestHeader Map<String, String> headers){
+      return "No metodoComHeadersParams: " + headers.entrySet();
     }
 
     //criação de classe simplificada
