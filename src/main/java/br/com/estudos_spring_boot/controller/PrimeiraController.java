@@ -8,6 +8,8 @@ import java.util.Map;
 
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 
 @RestController
 @RequestMapping("/primeiraController")
@@ -36,5 +38,15 @@ public class PrimeiraController {
     @GetMapping("/metodoComQueryParamsMap")
     public String metodoComQueryParamsMap(@RequestParam Map<String, String> allParams){
       return "No metodoComQueryParamsMap, o parametro é: " + allParams.entrySet();
+    }
+
+    @PostMapping("/metodoComBodyParams")
+    public String metodoComBodyParams(@RequestBody Usuario usuario){
+      return "No metodoComBodyParams, o verbo HTTP usado foi POST: " + usuario.username();
+    }
+
+    //criação de classe simplificada
+    record Usuario(String username) {
+
     }
 }
