@@ -6,6 +6,8 @@ import org.springframework.web.bind.annotation.RestController;
 
 import java.util.Map;
 
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -62,8 +64,21 @@ public class PrimeiraController {
       return "No metodoComHeadersParams: " + headers.entrySet();
     }
 
-    //criação de classe simplificada
-    record Usuario(String username) {
+    // Ex: localhost:8080/primeiraController/metodoResponseEntity/6
+    // usamos Object pq pode retornar tanto o objeto usuario quanto a String de erro
+    // No Postman
+    @GetMapping("/metodoResponseEntity/{id}")
+    public ResponseEntity<Object> metodResponseEntity(@PathVariable int id){
+      
+      var usuario = new Usuario("Maycon Douglas");
 
+      if (id > 5) {
+        return ResponseEntity.status(HttpStatus.OK).body(usuario);
+      }
+      
+      return ResponseEntity.badRequest().body("Id inválido, pois é menor que 5.");
     }
+
+    //criação de classe simplificada
+    record Usuario(String username) {}
 }
